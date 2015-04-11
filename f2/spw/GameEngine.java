@@ -22,10 +22,12 @@ public class GameEngine implements KeyListener, GameReporter{
 	private long score = 0;
 	private double difficulty = 0.1;
 	
-	public GameEngine(GamePanel gp, SpaceShip v) {
+	private String name;
+
+	public GameEngine(GamePanel gp, SpaceShip v, String name) {
 		this.gp = gp;
 		this.v = v;		
-		
+		this.name = name;
 		gp.sprites.add(v);
 		
 		timer = new Timer(50, new ActionListener() {
@@ -95,6 +97,10 @@ public class GameEngine implements KeyListener, GameReporter{
 			difficulty += 0.1;
 			break;
 		}
+	}
+
+	public String getName(){
+		return name;
 	}
 
 	public long getScore(){
