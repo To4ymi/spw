@@ -20,7 +20,7 @@ public class GameEngine implements KeyListener, GameReporter{
 	private Timer timer;
 	private long score = 0;
 	private double difficulty = 0.1;
-	
+	private boolean p;
 	private String name;
 
 	public GameEngine(GamePanel gp, SpaceShip v, String name) {
@@ -42,7 +42,14 @@ public class GameEngine implements KeyListener, GameReporter{
 	
 	public void start(){
 		timer.start();
+		p = true;
 	}
+
+	public void stop(){
+		timer.stop();
+		p = false;
+	}
+
 	
 	private void generateEnemy(){
 		Enemy e = new Enemy((int)(Math.random()*390), 30);
@@ -81,7 +88,7 @@ public class GameEngine implements KeyListener, GameReporter{
 	}
 	
 	public void die(){
-		timer.stop();
+		stop();
 		JOptionPane.showMessageDialog(null, "You are die !\n"+"Name : " + getName()+"\n"+"Score : " + getScore(), "Reporter", JOptionPane.INFORMATION_MESSAGE);
 	}
 	
@@ -97,10 +104,10 @@ public class GameEngine implements KeyListener, GameReporter{
 			difficulty += 0.1;
 			break;
 		case KeyEvent.VK_P:
-			timer.stop();
-			break;
-		case KeyEvent.VK_O:
-			timer.start();
+			if(p)
+				stop();
+			else
+				start();
 			break;
 		}
 	}
