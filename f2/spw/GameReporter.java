@@ -4,5 +4,4 @@ public interface GameReporter {
 
 	long getScore();
 	String getName();
-	int getLife();
 }
