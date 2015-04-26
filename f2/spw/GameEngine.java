@@ -22,6 +22,7 @@ public class GameEngine implements KeyListener, GameReporter{
 	private double difficulty = 0.1;
 	private boolean p;
 	private String name;
+	private int life = 3;
 
 	public GameEngine(GamePanel gp, SpaceShip v, String name) {
 		this.gp = gp;
@@ -81,24 +82,40 @@ public class GameEngine implements KeyListener, GameReporter{
 		for(Enemy e : enemies){
 			er = e.getRectangle();
 			if(er.intersects(vr)){
-				die();
+				if(life != 0)
+					die();
+				else
+					gameover();
 			return;
 			}
 		}
 	}
+
+	public void gameover(){
+		stop();
+		JOptionPane.showMessageDialog(null, "Game Over !\n"+"Name : " + getName()+"\n"+"Score : " + getScore(), "Reporter", JOptionPane.INFORMATION_MESSAGE);
+	}
 	
 	public void die(){
 		stop();
-		JOptionPane.showMessageDialog(null, "You are die !\n"+"Name : " + getName()+"\n"+"Score : " + getScore(), "Reporter", JOptionPane.INFORMATION_MESSAGE);
+		life--;
+		JOptionPane.showMessageDialog(null, "You are die !\n"+"Life : " + life, "Reporter", JOptionPane.INFORMATION_MESSAGE);
+		start();
 	}
 	
 	void controlVehicle(KeyEvent e) {
 		switch (e.getKeyCode()) {
 		case KeyEvent.VK_LEFT:
-			v.move(-1);
+			v.move_x(-1);
 			break;
 		case KeyEvent.VK_RIGHT:
-			v.move(1);
+			v.move_x(1);
+			break;
+		case KeyEvent.VK_DOWN:
+			v.move_y(1);
+			break;
+		case KeyEvent.VK_UP:
+			v.move_y(-1);
 			break;
 		case KeyEvent.VK_D:
 			difficulty += 0.1;
@@ -118,6 +135,10 @@ public class GameEngine implements KeyListener, GameReporter{
 
 	public long getScore(){
 		return score;
+	}
+
+	public int getLife(){
+		return life;
 	}
 	
 	@Override
