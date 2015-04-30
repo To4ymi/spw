@@ -4,10 +4,13 @@ import java.awt.BorderLayout;
 import javax.swing.JOptionPane;
 import javax.swing.JFrame;
 
+
+
 public class Main {
 	public static void main(String[] args){
 		String name;
 
+		Music bgsound = new Music();
 		name = JOptionPane.showInputDialog("Enter your name.");
 
 		JFrame frame = new JFrame("Space War");
@@ -23,6 +26,7 @@ public class Main {
 		frame.setVisible(true);
 		
 		engine.start();
+		bgsound.playSound(3);
 
 	
 	}
